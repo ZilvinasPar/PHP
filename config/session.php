@@ -31,11 +31,15 @@ class Session{
             self::destroy();
             header("Location:login.php");
         }
+        if(self::get('access_level') != 100){
+            self::destroy();
+            header('Location: login.php');
+        }
     }
 
     public static function checkLogin(){
         self::init();
-        if (self::get("access_level") == 100) {
+        if (self::get("access_level") === 100) {
             header("Location:index.php");
         }
     }

@@ -1,7 +1,8 @@
 <?php require_once './config/config.php';
 
-$db = new Database();
+$category = new Category();
 
+print_r($category->getAllNavCategories());
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,83 +95,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav menu__list">
-                            <li class="active menu__item menu__item--current"><a class="menu__link" href="index.php">Home <span class="sr-only">(current)</span></a></li>
-                            <li class=" menu__item"><a class="menu__link" href="about.php">About</a></li>
+                            <li class="active menu__item menu__item--current"><a class="menu__link" href="index.php">Home<span class="sr-only">(current)</span></a></li>
+                            <?php foreach ($category->getAllNavCategories() as $navCat){ ?>
+                               <?php if($navCat['children'] == NULL){ ?>
+
+                            <li class="active menu__item menu__item--current"><a class="menu__link" href="index.php"><?php echo $navCat['cat_name']; ?><span class="sr-only">(current)</span></a></li>
+                            <?php } ?>
+
                             <li class="dropdown menu__item">
-                                <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Men's wear <span class="caret"></span></a>
+                                <?php if($navCat['children'] != NULL){ ?>
+
+                                <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $navCat['cat_name']; ?><span class="caret"></span></a>
+
                                 <ul class="dropdown-menu multi-column columns-3">
+
                                     <div class="agile_inner_drop_nav_info">
                                         <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
                                             <a href="category.php"><img src="images/top2.jpg" alt=" "/></a>
                                         </div>
                                         <div class="col-sm-3 multi-gd-img">
                                             <ul class="multi-column-dropdown">
-                                                <li><a href="category.php">Clothing</a></li>
-                                                <li><a href="category.php">Wallets</a></li>
-                                                <li><a href="category.php">Footwear</a></li>
-                                                <li><a href="category.php">Watches</a></li>
-                                                <li><a href="category.php">Accessories</a></li>
-                                                <li><a href="category.php">Bags</a></li>
-                                                <li><a href="category.php">Caps & Hats</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-3 multi-gd-img">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a href="category.php">Jewellery</a></li>
-                                                <li><a href="category.php">Sunglasses</a></li>
-                                                <li><a href="category.php">Perfumes</a></li>
-                                                <li><a href="category.php">Beauty</a></li>
-                                                <li><a href="category.php">Shirts</a></li>
-                                                <li><a href="category.php">Sunglasses</a></li>
-                                                <li><a href="category.php">Swimwear</a></li>
+                                    <?php foreach ($navCat['children'] as $navChildren){ ?>
+                                                <li><a href="category.php"><?php echo $navChildren['cat_name']; ?></a></li>
+                                    <?php } ?>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                 </ul>
                             </li>
-                            <li class="dropdown menu__item">
-                                <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Women's wear <span class="caret"></span></a>
-                                <ul class="dropdown-menu multi-column columns-3">
-                                    <div class="agile_inner_drop_nav_info">
-                                        <div class="col-sm-3 multi-gd-img">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a href="category.php">Clothing</a></li>
-                                                <li><a href="category.php">Wallets</a></li>
-                                                <li><a href="category.php">Footwear</a></li>
-                                                <li><a href="category.php">Watches</a></li>
-                                                <li><a href="category.php">Accessories</a></li>
-                                                <li><a href="category.php">Bags</a></li>
-                                                <li><a href="category.php">Caps & Hats</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-3 multi-gd-img">
-                                            <ul class="multi-column-dropdown">
-                                                <li><a href="catcategory.php">Jewellery</a></li>
-                                                <li><a href="catcategory.php">Sunglasses</a></li>
-                                                <li><a href="catcategory.php">Perfumes</a></li>
-                                                <li><a href="catcategory.php">Beauty</a></li>
-                                                <li><a href="catcategory.php">Shirts</a></li>
-                                                <li><a href="catcategory.php">Sunglasses</a></li>
-                                                <li><a href="catcategory.php">Swimwear</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-6 multi-gd-img multi-gd-text ">
-                                            <a href="category.php"><img src="images/top1.jpg" alt=" "/></a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li class="menu__item dropdown">
-                                <a class="menu__link" href="#" class="dropdown-toggle" data-toggle="dropdown">Short Codes <b class="caret"></b></a>
-                                <ul class="dropdown-menu agile_short_dropdown">
-                                    <li><a href="icons.html">Web Icons</a></li>
-                                    <li><a href="typography.html">Typography</a></li>
-                                </ul>
-                            </li>
-                            <li class=" menu__item"><a class="menu__link" href="contact.php">Contact</a></li>
+
+                            <?php } ?>
+                            <?php } ?>
+                            <li class="active menu__item menu__item--current"><a class="menu__link" href="about.php">About<span class="sr-only"></span></a></li>
+                            <li class="active menu__item menu__item--current"><a class="menu__link" href="contact.php">Contact<span class="sr-only"></span></a></li>
                         </ul>
+
+
+
                     </div>
                 </div>
             </nav>

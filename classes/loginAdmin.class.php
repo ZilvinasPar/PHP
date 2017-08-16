@@ -24,8 +24,8 @@ class loginAdmin
         $admin_password = mysqli_real_escape_string($this->db->link, $admin_password);
 
 
-        if(empty($admin_email)|| empty($admin_password)){
-            $loginMessage = "<p>Login as Password cannot be empty!</p>";
+        if(empty($admin_email) || empty($admin_password)){
+            $loginMessage = "<p>Login or Password cannot be empty!</p>";
             return $loginMessage;
         }else{
             $query = "SELECT * FROM e_admin WHERE admin_email = '".$admin_email."' AND admin_password = '".$admin_password."'";
@@ -43,7 +43,9 @@ class loginAdmin
             }else{
                 $loginMessage = "<p style='text-align: center;'>Username or Password do not match!</p><br>";
                 return $loginMessage;
+
             }
+
         }
     }
 
